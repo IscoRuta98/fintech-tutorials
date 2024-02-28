@@ -12,8 +12,10 @@ To run the following scripts in this section, you will need to install the follo
     3. https://wiki.python.org/moin/BeginnersGuide/Programmers
 
 To check if Python has been installed, run the following line in your terminal:
-- On Windows OS: `python --version`
+- On Windows OS: `python --version`. If this raises an error, try `py --version`.
 - On MacOS & Linux: `python3 --version`
+
+If you get an error similar to: `python not recognised`, python may not be added to your computer's environment PATH. To do so, please follow the recommendations from the following article: [How to Add Python to PATH](https://realpython.com/add-python-to-path/#how-to-add-python-to-path-on-windows)
 
 ### Pip
 Pip (Preferred Installer Program) is the package installer for Python. You can use it to install packages from the Python Package Index and other indexes. Usually, when you install Python, pip is already installed. To check if pip is available, run the following commands (and get similar outputs):
