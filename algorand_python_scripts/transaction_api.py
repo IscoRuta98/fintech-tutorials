@@ -31,10 +31,7 @@ api_key = ''
 # example: ALGOD_CREATE_CLIENT
 # Create a new algod client, configured to connect to our local sandbox
 algod_address = "https://testnet-api.algonode.cloud"
-headers = {
-    "X-API-Key": api_key
-}
-algod_client = algod.AlgodClient(api_key, algod_address, headers)
+algod_client = algod.AlgodClient(api_key, algod_address)
 
 mn = 'ENTER YOUR MNEMONIC HERE'
 private_key = mnemonic.to_private_key(mn)
@@ -52,7 +49,7 @@ unsigned_txn = transaction.PaymentTxn(
     sender=address,
     sp=params,
     receiver=receiver_address,
-    amt=1000000, # MicroAlgos. 1 ALGO = 1,000,000 MicroAlgos
+    amt=1000000, # Amount variable is measured in MicroAlgos. i.e. 1 ALGO = 1,000,000 MicroAlgos
     note="ENTER DESCRIPTION OF THE TRANSACTION",
 )
 
