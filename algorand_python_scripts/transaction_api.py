@@ -8,16 +8,15 @@ confirmed and fetch the transaction information.
 """
 1. The script imports necessary libraries like base64, json, algosdk, and decouple.
 2. It fetches the API key from the environment variable by using the 'config' method from the decouple library.
-3. If the API key is not found, the script raises a ValueError.
-4. The script sets up the connection to the Algorand blockchain by creating an instance of the AlgodClient class with the 
+3. The script sets up the connection to the Algorand blockchain by creating an instance of the AlgodClient class with the 
    provided API key, Algod address, and headers. It connects to the testnet Algorand blockchain hosted by Algonode.
-5. The script fetches the private key from the mnemonic using the mnemonic.to_private_key() method from the algosdk library.
-6. The script derives the Algorand address from the private key using the account.address_from_private_key() method from the same library.
-7. The script builds an unsigned Payment Transaction object with the suggested parameters received from the AlgodClient instance using the suggested_params() method.
-8. The script signs the transaction with the private key.
-9. The script submits the signed transaction to the Algorand blockchain using the send_transaction() method from the AlgodClient instance and gets back the transaction ID.
-10. The script waits for the transaction to be confirmed using the wait_for_confirmation() method from the transaction module of the algosdk library.
-11. Finally, the script prints out the transaction information, such as the transaction ID and the decoded note.
+4. The script fetches the private key from the mnemonic using the mnemonic.to_private_key() method from the algosdk library.
+5. The script derives the Algorand address from the private key using the account.address_from_private_key() method from the same library.
+6. The script builds an unsigned Payment Transaction object with the suggested parameters received from the AlgodClient instance using the suggested_params() method.
+7. The script signs the transaction with the private key.
+8. The script submits the signed transaction to the Algorand blockchain using the send_transaction() method from the AlgodClient instance and gets back the transaction ID.
+9. The script waits for the transaction to be confirmed using the wait_for_confirmation() method from the transaction module of the algosdk library.
+10. Finally, the script prints out the transaction information, such as the transaction ID and the decoded note.
 """
 
 
@@ -28,9 +27,6 @@ from algosdk.v2client import algod
 
 # Load the API key (Algonode does not require an API key hence the empty string)
 api_key = ''
-print(api_key)
-# if not api_key:
-#     raise ValueError('API_KEY not found in environment')
 
 # example: ALGOD_CREATE_CLIENT
 # Create a new algod client, configured to connect to our local sandbox
@@ -56,8 +52,8 @@ unsigned_txn = transaction.PaymentTxn(
     sender=address,
     sp=params,
     receiver=receiver_address,
-    amt=1000000, # MicroAlgos
-    note="Transactions using an API",
+    amt=1000000, # MicroAlgos. 1 ALGO = 1,000,000 MicroAlgos
+    note="ENTER DESCRIPTION OF THE TRANSACTION",
 )
 
 # sign the transaction
@@ -68,7 +64,7 @@ txid = algod_client.send_transaction(signed_txn)
 print("Successfully submitted transaction with txID: {}".format(txid))
 
 # wait for confirmation
-txn_result = transaction.wait_for_confirmation(algod_client, txid, 4)
+txn_result = transaction.wait_for_confirmation(algod_client, txid)
 
 print(f"Transaction information: {json.dumps(txn_result, indent=4)}")
 print(f"Decoded note: {b64decode(txn_result['txn']['txn']['note'])}")
